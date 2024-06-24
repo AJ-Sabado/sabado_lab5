@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 public class Sabado_lab5_1 {
     static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     
+    static int myArr[] = new int[32];
+    
     static String getInput() {
         String buffer = "";
         try {
@@ -26,22 +28,57 @@ public class Sabado_lab5_1 {
         return buffer;
     }
     
-    static int decimalToBinary(int val){
-        int myArr[] = new int[32];
+    static String decimalToBinary(int val){
         int x = 0;
         while (val > 0) {
-            if (val%2==0)
-                myArr[x++] = 0;
-            else
-                myArr[x++] = 1;
+            myArr[x++] = val%2;
             val /= 2;
         }
         String result = "";
+        
         for(int a = x - 1; a >= 0; a--) {
             result += myArr[a];
         }
         
-        return Integer.parseInt(result);
+        return result;
+    }
+    
+    static String decimalToOctal(int val) {
+        int x = 0;
+        while (val > 0) {
+            myArr[x++] = val%8;
+            val /= 8;
+        }
+        String result = "";
+        
+        for(int a = x - 1; a >= 0; a--) {
+            result += myArr[a];
+        }
+        
+        return result;
+    }
+    
+    static String decimalToHex (int val) {
+        int x = 0;
+        while (val > 0) {
+            myArr[x++] = val%16;
+            val /= 16;
+        }
+        String result = "";
+        
+        for(int a = x - 1; a >= 0; a--) {
+            if (myArr[a] > 9) {
+                result += myArr[a] == 15 ? "F" :
+                        myArr[a] == 14 ? "E" :
+                        myArr[a] == 13 ? "D" :
+                        myArr[a] == 12 ? "C" :
+                        myArr[a] == 11 ? "B" : "A";
+            }
+            else
+                result += myArr[a];
+        }
+        
+        return result;
     }
     
     public static void main(String[] args) {
@@ -66,9 +103,11 @@ public class Sabado_lab5_1 {
                 System.out.println("Equivalent of " + originalValue + " in binary is " + decimalToBinary(originalValue));
                 break;
             case 2:
-
+                System.out.println("Equivalent of " + originalValue + " in octal is " + decimalToOctal(originalValue));
+                break;
             case 3:
-
+                System.out.println("Equivalent of " + originalValue + " in hexadecimal is " + decimalToHex(originalValue));
+                break;
             default:
                 System.out.println("Invalid choice!");
                 break;
